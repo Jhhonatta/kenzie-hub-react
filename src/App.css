@@ -1,0 +1,6 @@
+.body {
+  background-color: rgba(18, 18, 20, 1);
+  min-height: 900px;
+  display: flex;
+  justify-content: center;
+}
