@@ -2,12 +2,15 @@ import Login from "../pages/login";
 import Record from "../pages/record";
 import Dashboard from "../pages/dashboard";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 import { Switch, Route } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 const Routes = () => {
-  const [localToken, setLocalToken] = useState([]);
+  const { localToken, setLocalToken } = useContext(UserContext);
+  // const [localToken, setLocalToken] = useState([]);
 
   useEffect(() => {
     setLocalToken(localStorage);

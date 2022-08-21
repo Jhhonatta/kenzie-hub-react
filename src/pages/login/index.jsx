@@ -1,71 +1,31 @@
-import api from "../../services/api";
-import { toast } from "react-toastify";
+// import api from "../../services/api";
+// import { toast } from "react-toastify";
 
 import { Containerlogin } from "./style";
 
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router-dom";
 
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { BsEye } from "react-icons/bs";
+import { UserContext } from "../../context/UserContext";
+import { useContext } from "react";
 
-const Login = ({ setLocalToken }) => {
-  const FormSchema = yup.object().shape({
-    email: yup.string().required("Campo obrigatório"),
-    password: yup.string().required("Campo obrigatório"),
-  });
+import FormSchemaLogin from "../../validations/validationLogin";
+
+const Login = () => {
+  const { onSubmitLogin, record } = useContext(UserContext);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(FormSchema),
+    resolver: yupResolver(FormSchemaLogin),
   });
 
-  console.log(errors);
-
-  const Fracasso = () => {
-    toast.error("Falha ao relizar o login");
-  };
-
-  const onSubmit = async (data) => {
-    const id = toast.loading("Carregando");
-
-    await api
-      .post("/sessions", data)
-      .then((response) => {
-        localStorage.setItem("@token-login", `${response.data.token}`);
-        localStorage.setItem("@user", JSON.stringify(response.data.user));
-        setLocalToken([1]);
-
-        toast.update(id, {
-          render: "Login realizado",
-          type: "success",
-          isLoading: false,
-          autoClose: 1000,
-          position: "top-right",
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-
-        dashboard.push("/dashboard", {
-          message: "Este usuário está cadstrado",
-        });
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const record = useHistory();
-  const dashboard = useHistory();
-
   return (
-    <Containerlogin onSubmit={handleSubmit(onSubmit)}>
+    <Containerlogin onSubmit={handleSubmit(onSubmitLogin)}>
       <h1>Kenize Hub</h1>
       <form>
         <p>Login</p>

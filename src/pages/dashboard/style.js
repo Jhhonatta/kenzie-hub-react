@@ -6,6 +6,9 @@ export const DivDashboard = styled.div`
   align-items: center;
   flex-direction: column;
 
+  color: white;
+  text-align: center;
+
   h1 {
     font-family: Inter;
     font-size: 18px;
@@ -23,29 +26,30 @@ export const DivDashboard = styled.div`
     font-family: Inter;
     font-size: 19px;
     font-weight: 700;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 17px;
-    gap: 35%;
 
-    @media (min-width: 584px) {
-      gap: 56%;
+    .divHeader {
+      width: 80%;
+      display: flex;
+      justify-content: space-between;
+
+      align-items: center;
+      margin: 26px auto;
+      padding: 0px;
     }
-  }
 
-  header > button {
-    color: #f8f9fa;
-    background-color: rgba(33, 37, 41, 1);
-    border-radius: 4px;
-    width: 55px;
-    padding: 4.48px 16px;
-    border: none;
-    font-family: Inter;
-    font-size: 10px;
-    font-weight: 600;
-    line-height: 23px;
-    cursor: pointer;
+    .divHeader > button {
+      color: #f8f9fa;
+      background-color: rgba(33, 37, 41, 1);
+      border-radius: 4px;
+      width: 55px;
+      padding: 4.48px 16px;
+      border: none;
+      font-family: Inter;
+      font-size: 10px;
+      font-weight: 600;
+      line-height: 23px;
+      cursor: pointer;
+    }
   }
 
   .subHeader {
@@ -53,10 +57,15 @@ export const DivDashboard = styled.div`
     border-top: 1px solid rgba(33, 37, 41, 1);
     border-bottom: 1px solid rgba(33, 37, 41, 1);
     margin-top: 24px;
-    justify-content: space-evenly;
 
     div {
-      margin: 0px;
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+
+      margin: 0 auto;
     }
 
     p {
@@ -70,39 +79,96 @@ export const DivDashboard = styled.div`
       margin: 0px 0px 35px 12px;
     }
 
-    @media (min-width: 584px) {
-      display: flex;
-      align-items: center;
-      padding: 35px 12px 35px 12px;
-
-      h1 {
-        margin: 0px;
+    @media (min-width: 769px) {
+      div {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 45px 0px;
       }
 
       p {
-        margin: 0px;
+        margin: 0;
       }
 
-      div {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        gap: 5%;
+      h1 {
+        margin: 0;
       }
     }
   }
 
   main {
-    h3 {
-      font-family: Inter;
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 24px;
-      letter-spacing: 0em;
-      text-align: left;
-      color: rgba(255, 255, 255, 1);
-      margin-left: 12px;
+    width: 100%;
+
+    div {
+      display: flex;
+      justify-content: space-between;
+
+      width: 80%;
+      margin: 19px auto;
+
+      align-items: center;
+      p {
+        color: #f8f9fa;
+        font-family: Inter;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 18px;
+      }
+
+      button {
+        background-color: #212529;
+        border: none;
+        padding: auto;
+        height: 32px;
+        width: 32.485294342041016px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    }
+
+    ul {
+      background-color: #212529;
+      width: 80%;
+      height: auto;
+      margin: auto;
+      border-radius: 4px;
+      padding: 22px 8.5px;
+    }
+
+    li {
+      background-color: #121214;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12.18px;
+      border-radius: 4.06px;
+      margin-bottom: 16px;
+
+      h1 {
+        margin: 0;
+      }
+
+      p {
+        color: rgba(134, 142, 150, 1);
+        font-family: Inter;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+      }
+
+      .divDelete {
+        width: auto;
+        margin: 0;
+        gap: 10px;
+      }
+
+      .delete {
+        margin: 0;
+        background-color: transparent;
+        padding: 0;
+      }
     }
   }
 `;

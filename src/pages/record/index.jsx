@@ -1,66 +1,72 @@
-import api from "../../services/api";
+// import api from "../../services/api";
 
 import { DivRecord } from "./style";
 
 import { useForm } from "react-hook-form";
 
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
-import * as yup from "yup";
+// import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import { useContext } from "react";
+import { UserContext } from "../../context/UserContext";
+
+import FormSchemaRecord from "../../validations/validationRecord";
 
 const Record = () => {
-  const FormSchema = yup.object().shape({
-    name: yup.string().required("Campo obrigatório"),
-    email: yup.string().required("Campo obrigatório").email("Email inválido"),
-    password: yup
-      .string()
-      .min(8, "É necessário 8 caractéres")
-      .matches(
-        /^(?=.*[A-Z])[0-9a-zA-Z$*&@#]{1,}$/,
-        "Deve conter um letra Maiuscula"
-      )
-      .matches(/^(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{1,}$/, "Deve ter um caracter"),
-    confirmarSenha: yup
-      .string()
-      .oneOf([yup.ref("password")], "Senhas incompatíveis"),
-    contact: yup.string().required("Campo obrigatório"),
-    bio: yup.string().required("Campo obrigatório"),
-  });
+  const { login, onSubmitRecord } = useContext(UserContext);
+
+  // const FormSchema = yup.object().shape({
+  //   name: yup.string().required("Campo obrigatório"),
+  //   email: yup.string().required("Campo obrigatório").email("Email inválido"),
+  //   password: yup
+  //     .string()
+  //     .min(8, "É necessário 8 caractéres")
+  //     .matches(
+  //       /^(?=.*[A-Z])[0-9a-zA-Z$*&@#]{1,}$/,
+  //       "Deve conter um letra Maiuscula"
+  //     )
+  //     .matches(/^(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{1,}$/, "Deve ter um caracter"),
+  //   confirmarSenha: yup
+  //     .string()
+  //     .oneOf([yup.ref("password")], "Senhas incompatíveis"),
+  //   contact: yup.string().required("Campo obrigatório"),
+  //   bio: yup.string().required("Campo obrigatório"),
+  // });
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(FormSchema),
+    resolver: yupResolver(FormSchemaRecord),
   });
 
   console.log(errors);
 
-  const login = useHistory();
+  // const login = useHistory();
 
-  const CadastroRealizado = () => {
-    toast.success("Cadastro realizado com sucesso");
-  };
+  // const CadastroRealizado = () => {
+  //   toast.success("Cadastro realizado com sucesso");
+  // };
 
-  const onSubmit = async (data) => {
-    await api
-      .post("/users", data)
-      .then((response) => {
-        login.push("/", {
-          message: "Cadastro realizado com sucesso",
-        });
+  // const onSubmitRecord = async (data) => {
+  //   await api
+  //     .post("/users", data)
+  //     .then((response) => {
+  //       login.push("/", {
+  //         message: "Cadastro realizado com sucesso",
+  //       });
 
-        CadastroRealizado();
-      })
-      .catch((err) => console.log(err));
-  };
+  //       CadastroRealizado();
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   return (
-    <DivRecord onSubmit={handleSubmit(onSubmit)}>
+    <DivRecord onSubmit={handleSubmit(onSubmitRecord)}>
       <div className="logoAndButton">
         <p>Kenzie Hub</p>
         <button
