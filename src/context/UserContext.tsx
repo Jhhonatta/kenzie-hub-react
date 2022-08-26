@@ -5,22 +5,107 @@ import { useHistory } from "react-router-dom";
 
 import { createContext, useState } from "react";
 
-export const UserContext = createContext({});
+import { ReactNode } from "react";
 
-function UserProvider({ children }) {
+export interface IData {
+  email: string;
+  password: ReactNode;
+}
+
+export interface Tech {
+  id: string;
+  title: string;
+  status: string;
+  user: {
+    id: string;
+  };
+  created_at: string;
+  upated_at: string;
+}
+
+interface IWork {
+  id: string;
+  title: string;
+  description: string;
+  deploy_url: string;
+  user: {
+    id: string;
+  };
+  created_at: string;
+  updated_at: string;
+}
+
+interface IDataCreateTech {
+  title: string;
+  status: string;
+}
+
+interface IDataRecord {
+  email: string;
+  password: string;
+  name: string;
+  bio: string;
+  contact: string;
+  course_module: string;
+}
+
+interface IUserProviderProps {
+  children: ReactNode;
+}
+
+interface IUserObjects {
+  course_module: ReactNode;
+  name: ReactNode;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    course_module: string;
+    bio: string;
+    contact: string;
+    techs: Tech[];
+    works: IWork[];
+    created_at: string;
+    updated_at: string;
+    avatar_url: null;
+  };
+}
+
+interface IUserContext {
+  localToken: number[];
+  setLocalToken: (data: number[]) => void;
+  onSubmitLogin: (data: any) => Promise<void>;
+  record: any;
+  login: any;
+  dashboard: any;
+  onSubmitRecord: (data: any) => Promise<void>;
+  modal: number;
+  setModal: (data: number) => void;
+  onSubmitCreateTech: (data: any) => Promise<void>;
+  user: IUserObjects;
+  techs: Tech[];
+  setTechs: (data: Tech[]) => void;
+  DeleteTech: (key: string, techId: string) => Promise<void>;
+}
+
+export const UserContext = createContext<IUserContext>({} as IUserContext);
+
+function UserProvider({ children }: IUserProviderProps) {
   const dashboard = useHistory();
   const record = useHistory();
   const login = useHistory();
-  const user = JSON.parse(localStorage.getItem("@user"));
+
   const token = localStorage.getItem("@token-login");
 
-  const [localToken, setLocalToken] = useState([]);
+  const user: IUserObjects = JSON.parse(localStorage.getItem("@user") || "{}");
+
+  const [localToken, setLocalToken] = useState<number[]>([]);
 
   const [modal, setModal] = useState(0);
 
-  const [techs, setTechs] = useState([]);
+  const [techs, setTechs] = useState<Tech[]>([]);
 
-  const onSubmitLogin = async (data) => {
+  const onSubmitLogin = async (data: IData) => {
     const id = toast.loading("Carregando");
 
     await api
@@ -46,7 +131,7 @@ function UserProvider({ children }) {
           progress: undefined,
         });
 
-        dashboard.push("/dashboard", {
+        dashboard.replace("/dashboard", {
           message: "Este usuário está cadstrado",
         });
       })
@@ -70,7 +155,7 @@ function UserProvider({ children }) {
     toast.success("Cadastro realizado com sucesso");
   };
 
-  const onSubmitRecord = async (data) => {
+  const onSubmitRecord = async (data: IDataRecord) => {
     await api
       .post("/users", data)
       .then((response) => {
@@ -79,11 +164,12 @@ function UserProvider({ children }) {
         });
 
         CadastroRealizado();
+        login.push("/");
       })
       .catch((err) => console.log(err));
   };
 
-  const onSubmitCreateTech = async (data) => {
+  const onSubmitCreateTech = async (data: IDataCreateTech) => {
     const id = toast.loading("Carregando");
     await api
       .post("/users/techs", data, {
@@ -122,7 +208,7 @@ function UserProvider({ children }) {
       });
   };
 
-  const Apagar = async (key, techId) => {
+  const DeleteTech = async (key: string, techId: string) => {
     console.log(key, techId);
     console.log(token);
 
@@ -145,6 +231,7 @@ function UserProvider({ children }) {
         onSubmitLogin,
         record,
         login,
+        dashboard,
         onSubmitRecord,
         modal,
         setModal,
@@ -152,7 +239,7 @@ function UserProvider({ children }) {
         user,
         techs,
         setTechs,
-        Apagar,
+        DeleteTech,
       }}
     >
       {children}

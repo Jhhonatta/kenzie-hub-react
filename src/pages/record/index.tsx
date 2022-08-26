@@ -1,15 +1,9 @@
-// import api from "../../services/api";
-
 import { DivRecord } from "./style";
 
 import { useForm } from "react-hook-form";
 
-// import { useHistory } from "react-router-dom";
-
-// import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-// import { toast } from "react-toastify";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
@@ -17,24 +11,6 @@ import FormSchemaRecord from "../../validations/validationRecord";
 
 const Record = () => {
   const { login, onSubmitRecord } = useContext(UserContext);
-
-  // const FormSchema = yup.object().shape({
-  //   name: yup.string().required("Campo obrigatório"),
-  //   email: yup.string().required("Campo obrigatório").email("Email inválido"),
-  //   password: yup
-  //     .string()
-  //     .min(8, "É necessário 8 caractéres")
-  //     .matches(
-  //       /^(?=.*[A-Z])[0-9a-zA-Z$*&@#]{1,}$/,
-  //       "Deve conter um letra Maiuscula"
-  //     )
-  //     .matches(/^(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{1,}$/, "Deve ter um caracter"),
-  //   confirmarSenha: yup
-  //     .string()
-  //     .oneOf([yup.ref("password")], "Senhas incompatíveis"),
-  //   contact: yup.string().required("Campo obrigatório"),
-  //   bio: yup.string().required("Campo obrigatório"),
-  // });
 
   const {
     register,
@@ -45,25 +21,6 @@ const Record = () => {
   });
 
   console.log(errors);
-
-  // const login = useHistory();
-
-  // const CadastroRealizado = () => {
-  //   toast.success("Cadastro realizado com sucesso");
-  // };
-
-  // const onSubmitRecord = async (data) => {
-  //   await api
-  //     .post("/users", data)
-  //     .then((response) => {
-  //       login.push("/", {
-  //         message: "Cadastro realizado com sucesso",
-  //       });
-
-  //       CadastroRealizado();
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
 
   return (
     <DivRecord onSubmit={handleSubmit(onSubmitRecord)}>
@@ -89,7 +46,7 @@ const Record = () => {
             placeholder="Digite aqui seu nome"
             {...register("name")}
           />
-          <p> {errors.name?.message}</p>
+          <p> {errors?.name?.message as unknown as string}</p>
         </label>
 
         <label>
@@ -99,7 +56,7 @@ const Record = () => {
             placeholder="Digite aqui seu email"
             {...register("email")}
           />
-          <p>{errors.email?.message}</p>
+          <p>{errors?.email?.message as unknown as string}</p>
         </label>
 
         <label>
@@ -109,7 +66,7 @@ const Record = () => {
             placeholder="Criar senha"
             {...register("password")}
           />
-          <p>{errors.password?.message}</p>
+          <p>{errors.password?.message as unknown as string}</p>
         </label>
 
         <label>
@@ -119,7 +76,7 @@ const Record = () => {
             placeholder="Confirmar senha"
             {...register("confirmarSenha")}
           />
-          <p>{errors.confirmarSenha?.message}</p>
+          <p>{errors.confirmarSenha?.message as unknown as string}</p>
         </label>
 
         <label>
@@ -129,7 +86,7 @@ const Record = () => {
             placeholder="Fale sobre você"
             {...register("bio")}
           />
-          <p>{errors.bio?.message}</p>
+          <p>{errors.bio?.message as unknown as string}</p>
         </label>
 
         <label>
@@ -139,7 +96,7 @@ const Record = () => {
             placeholder="Opoção de contato"
             {...register("contact")}
           />
-          <p>{errors.contact?.message}</p>
+          <p>{errors.contact?.message as unknown as string}</p>
         </label>
 
         <label>Selecionar módulo</label>

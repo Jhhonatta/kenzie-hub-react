@@ -31,7 +31,7 @@ const ModalTechRegistration = () => {
             placeholder="Nova tecnologia"
             {...register("title")}
           />
-          <p>{errors.title?.message}</p>
+          <p>{errors?.title?.message as unknown as string}</p>
         </label>
         <label>
           Selecionar status

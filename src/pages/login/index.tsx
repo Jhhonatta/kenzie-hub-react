@@ -1,6 +1,3 @@
-// import api from "../../services/api";
-// import { toast } from "react-toastify";
-
 import { Containerlogin } from "./style";
 
 import { useForm } from "react-hook-form";
@@ -36,7 +33,7 @@ const Login = () => {
           placeholder="Email cadastrado"
           {...register("email")}
         />
-        <p className="error"> {errors.email?.message}</p>
+        <p className="error"> {errors?.email?.message as unknown as string}</p>
 
         <label>Senha</label>
         <div className="divPassword">
@@ -47,7 +44,9 @@ const Login = () => {
           />
           <BsEye />
         </div>
-        <p className="error">{errors.password?.message}</p>
+        <p className="error">
+          {errors?.password?.message as unknown as string}
+        </p>
         <button type="submit">Entrar</button>
         <span>Ainda não possui uma conta?</span>
 

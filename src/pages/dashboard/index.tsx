@@ -1,5 +1,5 @@
 import { DivDashboard } from "./style";
-import { useHistory } from "react-router-dom";
+
 import { GrAdd } from "react-icons/gr";
 import { CgTrash } from "react-icons/cg";
 import { toast } from "react-toastify";
@@ -8,22 +8,15 @@ import ModalTechRegistration from "../../components/modalregistration/modalTechR
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
-const Dashboard = ({ setLocalToken }) => {
-  const { modal, setModal, user, techs, setTechs, Apagar } =
+const Dashboard = () => {
+  const { modal, setModal, user, techs, DeleteTech, login, setLocalToken } =
     useContext(UserContext);
-
-  const login = useHistory();
 
   const Logout = () => {
     toast.success("Não demore a voltar");
   };
 
-  // const Delete = (key, techId) => {
-  //   setTechs(techs?.filter((elem) => elem.title !== key));
-  //   console.log(key, techId);
-  // };
-
-  return (
+  return user ? (
     <DivDashboard>
       <header>
         <div className="divHeader">
@@ -33,9 +26,8 @@ const Dashboard = ({ setLocalToken }) => {
               localStorage.clear();
               Logout();
               setLocalToken([]);
-
               login.push("/", {
-                message: "Este usuário deslogou",
+                message: "Este usuário voltou para a página de login",
               });
             }}
           >
@@ -66,7 +58,7 @@ const Dashboard = ({ setLocalToken }) => {
                     <p>{elem.status}</p>
                     <button
                       onClick={() => {
-                        Apagar(elem.title, elem.id);
+                        DeleteTech(elem.title, elem.id);
                       }}
                       className="delete"
                     >
@@ -83,6 +75,8 @@ const Dashboard = ({ setLocalToken }) => {
       </main>
       {modal === 1 ? <ModalTechRegistration /> : false}
     </DivDashboard>
+  ) : (
+    login.push("/")
   );
 };
 
