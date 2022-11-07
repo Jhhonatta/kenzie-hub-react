@@ -151,11 +151,9 @@ function UserProvider({ children }: IUserProviderProps) {
       });
   };
 
-  const CadastroRealizado = () => {
-    toast.success("Cadastro realizado com sucesso");
-  };
-
   const onSubmitRecord = async (data: IDataRecord) => {
+    const id = toast.loading("Carregando");
+
     await api
       .post("/users", data)
       .then((response) => {
@@ -163,10 +161,35 @@ function UserProvider({ children }: IUserProviderProps) {
           message: "Cadastro realizado com sucesso",
         });
 
-        CadastroRealizado();
+        toast.update(id, {
+          render: "Cadastro realizado com sucesso",
+          type: "success",
+          isLoading: false,
+          autoClose: 1000,
+          position: "top-right",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
         login.push("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.update(id, {
+          render: "Este e-mail, já está em uso",
+          type: "error",
+          isLoading: false,
+          autoClose: 1000,
+          position: "top-right",
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
   };
 
   const onSubmitCreateTech = async (data: IDataCreateTech) => {
