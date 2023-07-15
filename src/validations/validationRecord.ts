@@ -5,12 +5,13 @@ const FormSchemaRecord = yup.object().shape({
   email: yup.string().required("Campo obrigatório").email("Email inválido"),
   password: yup
     .string()
-    .min(8, "É necessário 8 caractéres")
+    .required("Campo obrigatório")
+    .matches(/^(?=.*[A-Z])/, "Deve conter uma letra maiúscula")
     .matches(
-      /^(?=.*[A-Z])[0-9a-zA-Z$*&@#]{1,}$/,
-      "Deve conter um letra Maiuscula"
+      /^(?=.*[$*&@#!])/,
+      "Deve conter ao menos um caracter especial($ * & @ # !)"
     )
-    .matches(/^(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{1,}$/, "Deve ter um caracter"),
+    .min(8, "Deve conter ao menos 8 caracteres"),
   confirmarSenha: yup
     .string()
     .oneOf([yup.ref("password")], "Senhas incompatíveis"),

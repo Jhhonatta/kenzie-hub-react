@@ -4,13 +4,22 @@ import { useForm } from "react-hook-form";
 
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
 
 import FormSchemaRecord from "../../validations/validationRecord";
 
+import { useState } from "react";
+import * as yup from "yup";
+import { ChangeEvent } from "react";
+import { ValidationError } from "yup";
+
 const Record = () => {
   const { login, onSubmitRecord } = useContext(UserContext);
+  const [valuePassword, setValuePassword] = useState<boolean | string>(false);
+  const [valueConfirmPassword, SetValueConfirmPassword] = useState("");
+  const [passwordStrength, setPasswordStrength] = useState("");
+  const [passwordMatch, setPasswordMatch] = useState<string | boolean>("");
 
   const {
     register,
@@ -20,7 +29,34 @@ const Record = () => {
     resolver: yupResolver(FormSchemaRecord),
   });
 
+  const verifyPassword = (event: ChangeEvent<HTMLInputElement>) => {
+    const password = event.target.value;
+
+    yup
+      .reach(FormSchemaRecord, "password")
+      .validate(password)
+      .then(() => {
+        setPasswordStrength("Senha válida.");
+        setValuePassword(password);
+      })
+      .catch((error: ValidationError) => {
+        setPasswordStrength(error.message);
+      });
+  };
+
+  const comparingPassword = (event: ChangeEvent<HTMLInputElement>) => {
+    const confirmarSenha = event.target.value;
+
+    console.log(valuePassword, confirmarSenha);
+    setPasswordMatch(valuePassword === confirmarSenha);
+    SetValueConfirmPassword(event.target.value);
+  };
+
   console.log(errors);
+
+  useEffect(() => {
+    setPasswordMatch(valuePassword === valueConfirmPassword);
+  }, [valuePassword, valueConfirmPassword]);
 
   return (
     <DivRecord onSubmit={handleSubmit(onSubmitRecord)}>
@@ -65,8 +101,9 @@ const Record = () => {
             type="password"
             placeholder="Criar senha"
             {...register("password")}
+            onChange={verifyPassword}
           />
-          <p>{errors.password?.message as unknown as string}</p>
+          <p>{passwordStrength}</p>
         </label>
 
         <label>
@@ -75,8 +112,15 @@ const Record = () => {
             type="password"
             placeholder="Confirmar senha"
             {...register("confirmarSenha")}
+            onChange={(event) => {
+              comparingPassword(event);
+            }}
           />
-          <p>{errors.confirmarSenha?.message as unknown as string}</p>
+          {(!valueConfirmPassword && !valuePassword && (
+            <p>Digite as senhas</p>
+          )) ||
+            (!passwordMatch && <p>Senhas incompatíveis</p>) ||
+            (passwordMatch === true && <p>Senhas compatíveis.</p>)}
         </label>
 
         <label>
