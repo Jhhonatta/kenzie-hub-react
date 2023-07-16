@@ -3,13 +3,13 @@ import styled from "styled-components";
 export const Containerlogin = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 100%;
   height: 100vh;
+  overflow: hidden;
 
-  padding-top: 81px;
   font-family: inter;
-  margin-bottom: 51px;
 
   h1 {
     color: rgba(255, 87, 127, 1);
@@ -17,14 +17,26 @@ export const Containerlogin = styled.div`
     margin-bottom: 19.39px;
   }
 
+  .containerForm {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    padding-top: 5px;
+  }
+
   form {
     background: rgba(33, 37, 41, 1);
     height: 402px;
+    width: 95%;
     border-radius: 3.21px;
     display: flex;
     flex-direction: column;
     align-items: center;
     height: auto;
+
+    @media (min-width: 400px) {
+      max-width: 400px;
+    }
   }
 
   p {
@@ -32,20 +44,30 @@ export const Containerlogin = styled.div`
     font-weight: 700;
     line-height: 22.46px;
     font-size: 14.44px;
-    margin: 33.69px 128.35px 22.83px 128.35px;
+    text-align: center;
+  }
+
+  .buttonPassword {
+    width: max-content;
+    background-color: transparent;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    align-items: center;
   }
 
   label {
+    width: 90%;
+
     font-family: Inter;
     font-weight: 400;
-    font-size: 9.77px;
+    font-size: 12px;
     color: rgba(248, 249, 250, 1);
-    margin-right: 240px;
+
     margin-bottom: 18px;
   }
 
   input {
-    width: 80%;
     background-color: rgba(52, 59, 65, 1);
     border: 1px solid rgba(248, 249, 250, 1);
     border-radius: 3.21px;
@@ -53,6 +75,10 @@ export const Containerlogin = styled.div`
     padding: 0px 13px;
     margin-bottom: 9px;
     outline: 0;
+  }
+
+  .iconPassword:hover {
+    color: #ffff33;
   }
 
   input::placeholder {
@@ -67,7 +93,6 @@ export const Containerlogin = styled.div`
   .divPassword {
     background-color: rgba(52, 59, 65, 1);
     border: 1px solid rgba(248, 249, 250, 1);
-    width: 82%;
 
     border-radius: 3.21px;
     display: flex;
@@ -90,13 +115,13 @@ export const Containerlogin = styled.div`
   }
 
   button {
-    width: 90%;
+    width: 100%;
     font-family: Inter;
     font-size: 13px;
     font-weight: 500;
     line-height: 21px;
     color: rgba(255, 255, 255, 1);
-    padding: 8px 110px;
+
     background-color: rgba(255, 87, 127, 1);
     border-radius: 4px;
     border: 1px solid rgba(255, 87, 127, 1);
@@ -121,7 +146,7 @@ export const Containerlogin = styled.div`
     font-size: 13px;
     font-weight: 500;
     line-height: 21px;
-    padding: 8px 91px;
+
     border: 1px solid rgba(134, 142, 150, 1);
     margin-bottom: 36px;
   }

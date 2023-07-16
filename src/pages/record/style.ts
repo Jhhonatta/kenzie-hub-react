@@ -1,20 +1,28 @@
 import styled from "styled-components";
 
 export const DivRecord = styled.div`
-  width: 310px;
-  margin-top: 49px;
+  width: 100%;
+  height: 100vh;
+
   display: flex;
-  align-items: center;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
 
   .logoAndButton {
-    width: 90%;
+    width: 100%;
+    margin: 0 auto;
     color: #ff577f;
     display: flex;
     align-items: center;
     font-family: Inter;
     font-weight: 700;
     justify-content: space-between;
+
+    @media (min-width: 562px) {
+      max-width: 572px;
+    }
   }
 
   .logoAndButton > button {
@@ -31,14 +39,46 @@ export const DivRecord = styled.div`
     cursor: pointer;
   }
 
+  .containerFull {
+    width: 90%;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
   form {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;
     background-color: rgba(33, 37, 41, 1);
-    padding: 0px 14px 0px 17.99px;
+    padding: 0px 5px;
     border-radius: 3.2px;
-    margin: 31.62px;
+    margin: 15px auto;
+    overflow-y: auto;
+
+    @media (min-width: 562px) {
+      max-width: 562px;
+      max-height: 500px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background-color: rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 4px;
+    }
 
     h3 {
       color: rgba(248, 249, 250, 1);
@@ -93,6 +133,7 @@ export const DivRecord = styled.div`
     }
 
     select {
+      width: 100%;
       margin-bottom: 16px;
       background-color: rgba(52, 59, 65, 1);
       border: 0.97px solid rgba(52, 59, 65, 1);
