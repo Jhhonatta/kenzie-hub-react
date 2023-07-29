@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { BsEye } from "react-icons/bs";
+import { BsEyeSlash } from "react-icons/bs";
+
 import { UserContext } from "../../context/UserContext";
 import { useContext, useState } from "react";
 
@@ -48,7 +50,7 @@ const Login = () => {
           <label>Senha</label>
           <div className="divPassword">
             <input
-              type={showPassword ? "text" : "password"} // Altera o tipo do input
+              type={showPassword ? "text" : "password"}
               placeholder="Senha"
               {...register("password")}
             />
@@ -57,7 +59,11 @@ const Login = () => {
               className="buttonPassword"
               onClick={handleTogglePassword}
             >
-              <BsEye className="iconPassword" />
+              {showPassword ? (
+                <BsEye className="iconPassword" />
+              ) : (
+                <BsEyeSlash className="iconPassword" />
+              )}
             </button>
           </div>
           <p className="error">
