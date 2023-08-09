@@ -13,7 +13,6 @@ Esse projeto foi desenvolvido com as seguintes tecnologias/bibliotecas:
 <td> JavaScript</td>
 <td> React.JS</td>
 <td> Styled Components</td>
-<td> Yup</td>
  </tr>
  <tr>
 <td> React Hook Form</td>
