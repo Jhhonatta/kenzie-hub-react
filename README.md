@@ -2,6 +2,8 @@
 
 Kenzie Hub é um sistema para gerenciamento de skills, com ele o usuário pode adicionar os seus conhecimentos em qualquer tecnologia, sendo possível o cadastro, edição ou exclusão. Este projeto foi desenvolvido para meu aperfeiçoamento em modal, formulários e controle de autenticação.
 
+Deploy: https://kenzie-hub-formulario.vercel.app/
+
 ## 🚀 Tecnologias
 
 Esse projeto foi desenvolvido com as seguintes tecnologias/bibliotecas:
